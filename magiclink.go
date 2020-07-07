@@ -76,5 +76,9 @@ func (c *Client) GetMetadataFromIssuer(issuer string) (*User, error) {
 	}
 	resp.Body.Close()
 
+	if responseBody.Status == "failed" {
+		return nil, errors.New(responseBody.Message)
+	}
+
 	return responseBody.User, nil
 }
